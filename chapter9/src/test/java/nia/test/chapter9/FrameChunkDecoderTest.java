@@ -38,7 +38,7 @@ public class FrameChunkDecoderTest {
             //如果上面没有 们将会产生一个新帧抛出异常，那么就会到达这个断言，并且测试失败
             Assert.fail();
         } catch (TooLongFrameException e) {
-            // expected exception
+            e.printStackTrace();
         }
         //写入剩余的2字节，并断言将会产生一个有效帧
         assertTrue(channel.writeInbound(input.readBytes(3)));

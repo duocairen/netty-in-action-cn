@@ -42,10 +42,13 @@ public class GracefulShutdown {
                     }
                 }
              );
-        bootstrap.connect(new InetSocketAddress("www.manning.com", 80)).syncUninterruptibly();
+        ChannelFuture channelFuture = bootstrap.connect(new InetSocketAddress("www.manning.com", 80)).syncUninterruptibly();
+        //channelFuture.channel().closeFuture().syncUninterruptibly();
         //,,,
         //shutdownGracefully()方法将释放所有的资源，并且关闭所有的当前正在使用中的 Channel
+
         Future<?> future = group.shutdownGracefully();
+        System.out.println("already shutdown gracefully");
         // block until the group has shutdown
         future.syncUninterruptibly();
     }

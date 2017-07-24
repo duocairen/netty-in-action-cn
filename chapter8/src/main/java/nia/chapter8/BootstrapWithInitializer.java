@@ -31,6 +31,7 @@ public class BootstrapWithInitializer {
         //绑定到地址
         ChannelFuture future = bootstrap.bind(new InetSocketAddress(8080));
         future.sync();
+      //  future.channel().closeFuture().sync();
     }
 
     //用以设置 ChannelPipeline 的自定义 ChannelInitializerImpl 实现
@@ -44,4 +45,5 @@ public class BootstrapWithInitializer {
 
         }
     }
+
 }

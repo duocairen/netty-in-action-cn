@@ -49,6 +49,7 @@ public class EchoClient {
             ChannelFuture f = b.connect().sync();
             //阻塞，直到Channel 关闭
             f.channel().closeFuture().sync();
+            System.out.println("关闭客户端完成");
         } finally {
             //关闭线程池并且释放所有的资源
             group.shutdownGracefully().sync();
@@ -57,15 +58,15 @@ public class EchoClient {
 
     public static void main(String[] args)
             throws Exception {
-        if (args.length != 2) {
+        /*if (args.length != 2) {
             System.err.println("Usage: " + EchoClient.class.getSimpleName() +
                     " <host> <port>"
             );
             return;
-        }
+        }*/
 
-        final String host = args[0];
-        final int port = Integer.parseInt(args[1]);
+        final String host = "127.0.0.1";
+        final int port = 6666;
         new EchoClient(host, port).start();
     }
 }

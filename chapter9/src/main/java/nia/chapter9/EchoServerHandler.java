@@ -1,8 +1,7 @@
-package nia.chapter2.echoserver;
+package nia.chapter9;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -25,6 +24,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         //将接收到的消息写给发送者，而不冲刷出站消息
         ctx.write(in);
         System.out.println("Server send msg: " + in.toString(CharsetUtil.UTF_8));
+        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER);
     }
 
     @Override

@@ -52,5 +52,10 @@ public class BootstrapServer {
                 }
             }
         });
+        /*try {
+            future.channel().closeFuture().sync();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
     }
 }

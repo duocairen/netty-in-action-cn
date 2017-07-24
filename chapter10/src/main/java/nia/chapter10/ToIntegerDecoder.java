@@ -19,7 +19,9 @@ public class ToIntegerDecoder extends ByteToMessageDecoder {
         //检查是否至少有 4 字节可读（一个 int 的字节长度）
         if (in.readableBytes() >= 4) {
             //从入站 ByteBuf 中读取一个 int，并将其添加到解码消息的 List 中
-            out.add(in.readInt());
+            int i = in.readInt();
+            System.out.println(i);
+            out.add(i);
         }
     }
 }

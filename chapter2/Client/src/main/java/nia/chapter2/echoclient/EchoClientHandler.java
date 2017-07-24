@@ -21,6 +21,7 @@ public class EchoClientHandler
         //当被通知 Channel是活跃的时候，发送一条消息
         ctx.writeAndFlush(Unpooled.copiedBuffer("Netty rocks!",
                 CharsetUtil.UTF_8));
+
     }
 
     @Override
@@ -34,6 +35,7 @@ public class EchoClientHandler
     //在发生异常时，记录错误并关闭Channel
     public void exceptionCaught(ChannelHandlerContext ctx,
         Throwable cause) {
+        System.out.println("连接失败，错误信息见下：");
         cause.printStackTrace();
         ctx.close();
     }
