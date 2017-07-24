@@ -21,7 +21,7 @@ public class IdleStateHandlerInitializer extends ChannelInitializer<Channel>
         ChannelPipeline pipeline = ch.pipeline();
         pipeline.addLast(
                 //(1) IdleStateHandler 将在被触发时发送一个IdleStateEvent 事件
-                new IdleStateHandler(0, 0, 60, TimeUnit.SECONDS));
+                new IdleStateHandler(0, 0, 10, TimeUnit.SECONDS));
         //将一个 HeartbeatHandler 添加到ChannelPipeline中
         pipeline.addLast(new HeartbeatHandler());
     }
@@ -36,6 +36,7 @@ public class IdleStateHandlerInitializer extends ChannelInitializer<Channel>
         @Override
         public void userEventTriggered(ChannelHandlerContext ctx,
             Object evt) throws Exception {
+            System.out.println("收到事件："+evt);
             //(2) 发送心跳消息，并在发送失败时关闭该连接
             if (evt instanceof IdleStateEvent) {
                 ctx.writeAndFlush(HEARTBEAT_SEQUENCE.duplicate())
@@ -45,6 +46,11 @@ public class IdleStateHandlerInitializer extends ChannelInitializer<Channel>
                 //不是 IdleStateEvent 事件，所以将它传递给下一个 ChannelInboundHandler
                 super.userEventTriggered(ctx, evt);
             }
+        }
+
+        @Override
+        public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+            System.out.println(ctx.channel().remoteAddress()+"断开");
         }
     }
 }
